@@ -7,6 +7,13 @@ namespace MessageBoard.Controllers
 {
     public class HomeController : Controller
     {
+        private IMailService _mail;
+
+        public HomeController(IMailService mail)
+        {
+            _mail = mail;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -38,9 +45,7 @@ namespace MessageBoard.Controllers
                 model.Website, 
                 model.Comment);
 
-            var svc = new MailService();
-
-            if (svc.SendMail("noreply@yourdomain.com",
+            if (_mail.SendMail("noreply@yourdomain.com",
                 "foo@yourdomain.com",
                 "Website contact",
                 msg))
