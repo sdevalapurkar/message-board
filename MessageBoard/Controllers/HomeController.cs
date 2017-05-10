@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using MessageBoard.Models;
 
 namespace MessageBoard.Controllers
 {
@@ -20,6 +21,14 @@ namespace MessageBoard.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        [HttpPost]
+        /*public ActionResult Contact(string name, string email, string website, string comment)*/
+        /*instead of passing these 4 parameters, we can pass a model instead*/
+        public ActionResult Contact(ContactModel model)
+        {
             return View();
         }
     }
