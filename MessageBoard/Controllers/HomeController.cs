@@ -61,5 +61,11 @@ namespace MessageBoard.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles="Admin")]
+        public ActionResult Moderation()
+        {
+            return View();
+        }
     }
 }
