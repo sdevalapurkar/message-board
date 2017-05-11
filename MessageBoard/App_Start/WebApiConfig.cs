@@ -15,10 +15,16 @@ namespace MessageBoard
         jsonFormatter.SerializerSettings.ContractResolver = 
                 new CamelCasePropertyNamesContractResolver();
 
-        config.Routes.MapHttpRoute(
+       config.Routes.MapHttpRoute(
+            name: "RepliesRoute",
+            routeTemplate: "api/topics/{topicid}/replies/{id}",
+            defaults: new { controller = "replies", id = RouteParameter.Optional }
+        );
+
+      config.Routes.MapHttpRoute(
           name: "DefaultApi",
-          routeTemplate: "api/{controller}/{id}",
-          defaults: new { id = RouteParameter.Optional }
+          routeTemplate: "api/topics/{id}",
+          defaults: new { controller="topics", id = RouteParameter.Optional }
       );
 
       // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.

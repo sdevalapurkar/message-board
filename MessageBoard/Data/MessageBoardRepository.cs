@@ -37,6 +37,11 @@ namespace MessageBoard.Data
             return _context.Topics;
         }
 
+        public IQueryable<Topic> GetTopicsIncludingReplies()
+        {
+            return _context.Topics.Include("Replies");
+        }
+
         public bool Save()
         {
             try
