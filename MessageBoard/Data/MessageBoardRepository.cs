@@ -12,6 +12,20 @@ namespace MessageBoard.Data
             _context = context;
         }
 
+        public bool AddReply(Reply newReply)
+        {
+            try
+            {
+                _context.Replies.Add(newReply);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+                //also need to log error
+            }
+        }
+
         public bool AddTopic(Topic newTopic)
         {
             try
