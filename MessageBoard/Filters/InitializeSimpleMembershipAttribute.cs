@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
-using MessageBoard.Models;
+using MessageBoard.Data;
 using WebMatrix.WebData;
 
 namespace MessageBoard.Filters
@@ -25,11 +25,11 @@ namespace MessageBoard.Filters
     {
       public SimpleMembershipInitializer()
       {
-        Database.SetInitializer<UsersContext>(null);
+        Database.SetInitializer<MessageBoardContext>(null);
 
         try
         {
-          using (var context = new UsersContext())
+          using (var context = new MessageBoardContext())
           {
             if (!context.Database.Exists())
             {

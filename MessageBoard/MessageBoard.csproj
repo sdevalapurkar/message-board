@@ -196,12 +196,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\IMessageBoardRepository.cs" />
+    <Compile Include="Data\MessageBoardContext.cs" />
     <Compile Include="Data\Reply.cs" />
     <Compile Include="Data\Topic.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705111534100_TopicAndReplyModel.cs" />
+    <Compile Include="Migrations\201705111534100_TopicAndReplyModel.Designer.cs">
+      <DependentUpon>201705111534100_TopicAndReplyModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -381,6 +388,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705111534100_TopicAndReplyModel.resx">
+      <DependentUpon>201705111534100_TopicAndReplyModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

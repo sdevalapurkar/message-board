@@ -5,6 +5,7 @@ using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
+using MessageBoard.Data;
 using MessageBoard.Filters;
 using MessageBoard.Models;
 using Microsoft.Web.WebPages.OAuth;
@@ -262,7 +263,7 @@ namespace MessageBoard.Controllers
       if (ModelState.IsValid)
       {
         // Insert a new user into the database
-        using (UsersContext db = new UsersContext())
+        using (MessageBoardContext db = new MessageBoardContext())
         {
           UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
           // Check if user already exists
