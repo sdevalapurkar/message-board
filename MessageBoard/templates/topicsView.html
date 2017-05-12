@@ -5,7 +5,7 @@
         <p class="lead">Latest Messages</p>
     
         <div>This is for {{ vm.name }}, he is great!</div>
-        <div>The data count is {{vm.dataCount}}</div>
+        <div>The data count is {{vm.data.topics.length}}</div>
         <input type="text" ng-model="vm.name"/>
 
     </div>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="messages">
-        <div class="message row" ng-repeat="i in vm.data">
+        <div class="message row" ng-repeat="i in vm.data.topics">
             <div class="title span10">{{i.title}}</div>
             <div class="date span2">{{i.created | date: "medium"}}</div>
             <div class="contents span12">{{i.body}}</div>

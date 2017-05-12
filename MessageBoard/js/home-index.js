@@ -1,59 +1,61 @@
 ﻿(function () {
     "use strict";
 
-    var topicsController = function ($http) {
+    var topicsController = function ($http, dataService) {
         var vm = this;
         vm.name = "Shreyas";
         vm.dataCount = 0;
 
-        vm.data = [
-            
-        ];
+        vm.data = {
+            topics: dataService.topics
+        };
 
-        vm.isBusy = true;
+        vm.isBusy = false;
 
-        $http({
-            method: "GET",
-            url: "/api/topics?includeReplies=true"
-            }).then(function successCallBack(response) {
+        if (dataService.isReady() == false) {
+
+            vm.isBusy = true;
+
+            dataService.getTopics().then(function(response) {
+
                     //success
-                angular.copy(response.data, vm.data);
-                vm.dataCount = response.data.length;
-            },
-                function errorCallBack(response) {
+                    vm.dataCount = response.length;
+
+//                    vm.data.topics = response;
+
+                },
+                function() {
                     //fail
-                    alert("could not load the topics");
+
+                    alert("could not load topics");
+
                 }).then(function() {
-            vm.isBusy = false;
-        });
+                vm.isBusy = false;
+            });
 
-
+        }
     };
 
-    function newTopicController($http, $window) {
+    function newTopicController($http, $window, dataService) {
         var vm = this;
 
         vm.newTopic = {};
 
         vm.save = function() {
 
-            $http.post("/api/topics", vm.newTopic).then(function successCallBack(response) {
-                //successful
-                //vm.newTopic = response.data;
-                angular.copy(response.data, vm.newTopic);
-
-                    //console.log(vm.newTopic);
-
-                    $window.location = "#/";
-                },
-                function errorCallBack(response) {
-                    //fail
-                    alert("could not save new topic");
-                });
+            dataService.addTopic(vm.newTopic)
+                .then(function() {
+                        //success
+                        $window.location = "#/";
+                    },
+                    function() {
+                        //fail
+                        alert("could not save the new topic");
+                    });
 
         };
     }
 
-    app.controller("topicsController", ["$http", topicsController]);
-    app.controller("newTopicController", ["$http", "$window", newTopicController]);
+    app.controller("topicsController", ["$http", "dataService", topicsController]);
+    app.controller("newTopicController", ["$http", "$window", "dataService", newTopicController]);
 }());
