@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    var homeIndexController = function ($http) {
+    var topicsController = function ($http) {
         var vm = this;
         vm.name = "Shreyas";
         vm.dataCount = 0;
@@ -17,8 +17,9 @@
             url: "/api/topics?includeReplies=true"
             }).then(function successCallBack(response) {
                     //success
-                    angular.copy(response.data, vm.data);
-                },
+                angular.copy(response.data, vm.data);
+                vm.dataCount = response.data.length;
+            },
                 function errorCallBack(response) {
                     //fail
                     alert("could not load the topics");
@@ -29,5 +30,16 @@
 
     };
 
-app.controller("homeIndexController", ["$http", homeIndexController]);
+    function newTopicController($http, $window) {
+        var vm = this;
+
+        vm.newTopic = {};
+
+        vm.save = function() {
+            alert(vm.newTopic.title);
+        };
+    }
+
+    app.controller("topicsController", ["$http", topicsController]);
+    app.controller("newTopicController", ["$http", "$window", newTopicController]);
 }());
