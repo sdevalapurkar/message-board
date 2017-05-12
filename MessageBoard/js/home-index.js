@@ -36,7 +36,21 @@
         vm.newTopic = {};
 
         vm.save = function() {
-            alert(vm.newTopic.title);
+
+            $http.post("/api/topics", vm.newTopic).then(function successCallBack(response) {
+                //successful
+                //vm.newTopic = response.data;
+                angular.copy(response.data, vm.newTopic);
+
+                    //console.log(vm.newTopic);
+
+                    $window.location = "#/";
+                },
+                function errorCallBack(response) {
+                    //fail
+                    alert("could not save new topic");
+                });
+
         };
     }
 
