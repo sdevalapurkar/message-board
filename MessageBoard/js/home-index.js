@@ -10,18 +10,24 @@
             
         ];
 
-        $http.get("/api/topics?includeReplies=true")
-            .then(function() {
+        vm.isBusy = true;
+
+        $http({
+            method: "GET",
+            url: "/api/topics?includeReplies=true"
+            }).then(function successCallBack(response) {
                     //success
-                    angular.copy(result.data, vm.data);
+                    angular.copy(response.data, vm.data);
                 },
-                function() {
+                function errorCallBack(response) {
                     //fail
                     alert("could not load the topics");
-                });
+                }).then(function() {
+            vm.isBusy = false;
+        });
 
 
     };
 
-app.controller("homeIndexController", [homeIndexController]);
+app.controller("homeIndexController", ["$http", homeIndexController]);
 }());
