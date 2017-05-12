@@ -4,16 +4,28 @@
     ViewBag.Title = "Home Page";
 }
 
+@section Scripts {
+<script src="~/js/app.js"></script>
+<script src="~/js/home-index.js"></script>
+}
+
+<div ng-controller="homeIndexController as vm">
+
 <div class="message-header">
     <h1>Message Board</h1>
     <p class="lead">Latest Messages</p>
+    
+    <div>This is for {{ vm.name }}, he is great!</div>
+    <div>The data count is {{vm.dataCount}}</div>
+    <input type="text" ng-model="vm.name"/>
+
 </div>
 
 <div class="messages">
-    <div class="message row">
-        <div class="title span10">Consectetur adipiscing elit fusce vel.</div>
-        <div class="date span2">May 10, 2017</div>
-        <div class="contents span12">Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    <div class="message row" ng-repeat="i in vm.data">
+        <div class="title span10">{{i.title}}</div>
+        <div class="date span2">{{i.created}}</div>
+        <div class="contents span12">{{i.body}}</div>
         <div class="toolbar span12"><button class="btn btn-primary reply-button">Reply</button></div>
         <div class="replies span12">
             <div class="reply">
@@ -30,34 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="message row">
-        <div class="title span10">Consectetur adipiscing elit fusce vel.</div>
-        <div class="date span2">May 10, 2017</div>
-        <div class="contents span12">Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
-        <div class="toolbar span12"><button class="btn btn-primary reply-button">Reply</button></div>
-        <div class="replies span12"></div>
-    </div>
-    <div class="message row">
-        <div class="title span10">Consectetur adipiscing elit fusce vel.</div>
-        <div class="date span2">May 10, 2017</div>
-        <div class="contents span12">Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
-        <div class="toolbar span12"><button class="btn btn-primary reply-button">Reply</button></div>
-        <div class="replies span12"></div>
-    </div>
-    <div class="message row">
-        <div class="title span10">Consectetur adipiscing elit fusce vel.</div>
-        <div class="date span2">May 10, 2017</div>
-        <div class="contents span12">Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
-        <div class="toolbar span12"><button class="btn btn-primary reply-button">Reply</button></div>
-        <div class="replies span12"></div>
-    </div>
-    <div class="message row">
-        <div class="title span10">Consectetur adipiscing elit fusce vel.</div>
-        <div class="date span2">May 10, 2017</div>
-        <div class="contents span12">Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
-        <div class="toolbar span12"><button class="btn btn-primary reply-button">Reply</button></div>
-        <div class="replies span12"></div>
-    </div>
+
 </div>
 
-
+</div>
