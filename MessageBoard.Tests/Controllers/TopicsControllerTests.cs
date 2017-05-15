@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -9,6 +10,7 @@ using MessageBoard.Controllers;
 using MessageBoard.Data;
 using MessageBoard.Tests.Fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 
 namespace MessageBoard.Tests.Controllers
 {
@@ -56,6 +58,12 @@ namespace MessageBoard.Tests.Controllers
 
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
 
+            var json = result.Content.ReadAsStringAsync().Result;
+            var topic = JsonConvert.DeserializeObject<Topic>(json);
+
+            Assert.IsNotNull(topic);
+            Assert.IsTrue(topic.Id > 0);
+            Assert.IsTrue(topic.Created > DateTime.MinValue);
         }
 
     }
