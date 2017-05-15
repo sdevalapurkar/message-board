@@ -9,6 +9,7 @@
         <input type="text" ng-model="vm.name"/>
 
     </div>
+
     
     <div>
         
@@ -22,16 +23,16 @@
 
     <div class="messages">
         <div class="message row" ng-repeat="i in vm.data.topics">
-            <div class="title span10">{{i.title}}</div>
-            <div class="date span2">{{i.created | date: "medium"}}</div>
-            <div class="contents span12">{{i.body}}</div>
-            <div class="toolbar span12"><button class="btn btn-primary reply-button">Reply</button></div>
-            <div class="replies span12">
-                <div class="reply" ng-repeat = "r in i.replies">
-                    <div class="created pull-right">{{r.created | date: "medium"}}</div>
-                    <div class="content">{{r.body}}</div>
-                </div>
+            <div class="title span10">
+                <a ng-href="#!message/{{i.id}}">{{i.title}}</a>
             </div>
+            <div class="date span2">
+                {{i.created | date: "medium"}}
+            </div>
+            <div class="contents span12">
+                {{i.body}}
+            </div>
+           
         </div>
 
     </div>

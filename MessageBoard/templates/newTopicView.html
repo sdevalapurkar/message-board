@@ -6,7 +6,7 @@
         
         <div>
             
-            <label for="title">title</label>
+            <label for="title">Title</label>
             <input name="title" type="text" ng-model="vm.newTopic.title" required ng-minlength="5"/>
             <span class="error" ng-show="newTopicForm.title.$error.required">*</span>
             <span class="error" ng-show="newTopicForm.title.$error.minlength">Minimum 5 Characters Long</span>
@@ -15,7 +15,7 @@
         
         <div>
             
-            <label for="body">body</label>
+            <label for="body">Body</label>
             <textarea name="body" rows="5" cols="30" ng-model="vm.newTopic.body" required ng-minlength="15"></textarea>
             <span class="error" ng-show="newTopicForm.body.$error.required">*</span>
             <span class="error" ng-show="newTopicForm.body.$error.minlength">Minimum 15 Characters Long</span>

@@ -56,6 +56,38 @@
         };
     }
 
+    function singleTopicController($window, dataService, $routeParams) {
+
+        var vm = this;
+        vm.topic = null;
+        vm.newReply = {};
+
+        dataService.getTopicById($routeParams.id)
+            .then(function(topic) {
+                //success
+                vm.topic = topic;
+            }, function () {
+                //fail
+                $window.location = "#/";
+            });
+
+        vm.addReply = function() {
+            dataService.saveReply(vm.topic, vm.newReply)
+                .then(function() {
+                        //success
+                        vm.newReply.body = "";
+                    },
+                    function() {
+                        //fail
+                        alert("could not save new reply")
+                    });
+        };
+
+
+
+    }
+
     app.controller("topicsController", ["$http", "dataService", topicsController]);
     app.controller("newTopicController", ["$http", "$window", "dataService", newTopicController]);
+    app.controller("singleTopicController", ["$window", "dataService", "$routeParams", singleTopicController]);
 }());

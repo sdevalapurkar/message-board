@@ -17,6 +17,12 @@ app.config(function($routeProvider) {
             templateUrl: "/templates/newTopicView.html"
         });
 
+    $routeProvider.when("/message/:id",
+        {
+            controller:"singleTopicController as vm",
+            templateUrl:"/templates/singleTopicView.html"
+        });
+
     $routeProvider.otherwise({redirectTo: "/" });
 });
 
@@ -69,12 +75,84 @@ app.factory("dataService", function($http, $q) {
             });
 
         return deferred.promise;
+        };
+
+    function _findTopic(id) {
+
+        var found = null;
+
+        $.each(_topics, function(i, item) {
+            if (item.id == id) {
+                found = item;
+                return false;
+            }
+        });
+
+        return found;
+
+    }
+
+    var _getTopicById = function(id) {
+        var deferred = $q.defer();
+
+        if (_isReady()) {
+
+            var topic = _findTopic(id);
+
+            if (topic) {
+                deferred.resolve(topic);
+            } else {
+                deferred.reject();
+            }
+
+        } else {
+            _getTopics()
+                .then(function() {
+                        //success
+                    var topic = _findTopic(id);
+
+                        if (topic) {
+                            deferred.resolve(topic);
+                        } else {
+                            deferred.reject();
+                        }
+                    },
+                    function() {
+                        //fail
+                        deferred.reject();
+                    });
+        }
+
+        return deferred.promise;
     };
 
-        return {
-            topics: _topics,
-            isReady: _isReady,
-            getTopics: _getTopics,
-            addTopic: _addTopic
-    };
+    var _saveReply = function(topic, newReply) {
+
+        var deferred = $q.defer();
+
+        $http.post("/api/topics/" + topic.id + "/replies", newReply)
+            .then(function(response) {
+                //success
+                if (topic.replies == null) {
+                    topic.replies = [];
+                }
+
+                topic.replies.push(response.data);
+                deferred.resolve(response.data);
+
+            }, function() {
+                //fail
+                deferred.reject();
+            });
+
+    }
+
+    return {
+        topics: _topics,
+        isReady: _isReady,
+        getTopics: _getTopics,
+        addTopic: _addTopic,
+        getTopicById: _getTopicById,
+        saveReply: _saveReply
+};
     });
